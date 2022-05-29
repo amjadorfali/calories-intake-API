@@ -1,0 +1,80 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateFoodInput {
+  calorieValue: Float!
+  dateTaken: DateTime!
+  name: String!
+  price: Float = 0
+}
+
+input CreateUserInput {
+  """Calorie Daily Limit"""
+  dailyLimit: Float = 2100
+
+  """Pass"""
+  password: String!
+
+  """Role"""
+  role: String!
+
+  """User Name"""
+  userName: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Food {
+  calorieValue: Float!
+  dateTaken: DateTime!
+  id: String!
+  name: String!
+  price: Float
+}
+
+input LoginInput {
+  password: String!
+  userName: String!
+}
+
+type LoginResponse {
+  accessToken: String!
+}
+
+type Mutation {
+  addFood(createFoodInput: CreateFoodInput!): Food!
+  adminCreateFood(createFoodInput: CreateFoodInput!, userId: String!): Food!
+  removeFood(id: String!): String
+  signIn(user: LoginInput!): LoginResponse!
+  signUp(createUserInput: CreateUserInput!): LoginResponse!
+  updateDailyLimit(dailyLimit: Float!): UserEntity!
+  updateFood(updateFoodInput: UpdateFoodInput!): Food!
+}
+
+type Query {
+  fetchFoods: [Food!]!
+  getCurrentAuthenticatedUser: UserEntity!
+  getUsers: [UserEntity!]!
+}
+
+input UpdateFoodInput {
+  calorieValue: Float
+  dateTaken: DateTime
+  foodId: String!
+  name: String
+  price: Float = 0
+}
+
+type UserEntity {
+  dailyLimit: Float
+  foods: [Food!]!
+  id: String!
+  password: String!
+  registrationNumber: Float!
+  role: String!
+  userName: String!
+}
